@@ -1,6 +1,6 @@
 #summary How to install AssetLibPro in your CodeIgniter application
 
-= Installation =
+= Installing Files =
 
 AssetLibPro consists of two files:
  # A *library* file _"Assetlibpro.php"_
@@ -11,6 +11,19 @@ _"CodeIgniter/application/libraries/Assetlibpro.php"_
 The *config* file _"assetlibpro.php"_ goes into your CodeIgniter application's "config" folder, such as:
 _"CodeIgniter/application/config/assetlibpro.php"_
 
+To allow compression you also need to download CSSTidy and JSMin
+
+Download CSSTidy and put the contents of the package into your /system/plugins folder (or wherever you’ve set it in your config file)
+{{{
+https://sourceforge.net/project/showfiles.php?group_id=148404&package_id=166584
+}}}
+
+Download JSMin and put the jsmin php file as "jsmin.php" into your /system/plugins folder (or wherever you’ve set it in your config file)
+{{{
+http://jsmin-php.googlecode.com/files/jsmin-1.1.1.php
+}}}
+
+= Configuration =
 
 In your *Controller* you need to load the library, like:
 {{{
