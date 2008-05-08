@@ -1,0 +1,89 @@
+#summary How to install AssetLibPro in your CodeIgniter application
+
+= Installation =
+
+AssetLibPro consists of two files:
+ # A *library* file _"Assetlibpro.php"_
+ # A *config* file _"assetlibpro.php"_
+
+The *library* file _"Assetlibpro.php"_ goes into your CodeIgniter application's "libraries" folder, such as:
+_"CodeIgniter/application/libraries/Assetlibpro.php"_
+The *config* file _"assetlibpro.php"_ goes into your CodeIgniter application's "config" folder, such as:
+_"CodeIgniter/application/config/assetlibpro.php"_
+
+
+In your *Controller* you need to load the library, like:
+{{{
+$this->load->library('assetlibpro');
+}}}
+…or add it to your autoload config, like:
+{{{
+$autoload['libraries'] = array('assetlibpro');
+}}}
+
+Now we need to actually add some assets to AssetLibPro. This is also done in your Controller, like:
+{{{
+<?php
+$this->assetlibpro->add_css('/assets/styles_1.css');
+$this->assetlibpro->add_css('/assets/styles_2.css');
+$this->assetlibpro->add_css('/assets/styles_3.css');
+$this->assetlibpro->add_js('/assets/mootools.js');
+$this->assetlibpro->add_js('/assets/foobar.js');
+?>
+}}}
+If you want to have one styles reference for print styles and one for screen, or whatever, then you can do this by adding a media tag to the command:
+{{{
+<?php
+$this->assetlibpro->add_css('/assets/print_styles_1.css', 'print');
+$this->assetlibpro->add_css('/assets/print_styles_2.css', 'print');
+$this->assetlibpro->add_css('/assets/styles_1.css');
+$this->assetlibpro->add_css('/assets/styles_2.css');
+$this->assetlibpro->add_css('/assets/styles_3.css');
+$this->assetlibpro->add_js('/assets/mootools.js','frameworks');
+$this->assetlibpro->add_js('/assets/foobar.js');
+?>
+}}}
+If you do not provide a group name, then the asset gets added to the default group (see config).
+(Splitting up Javascript into groups —like seen here— does not make any sense. But as both functions (_add_css()_ & _add_js()_) share the same functionality, it's possible to do it and thus documented. :D
+
+Then in your *View* you need to tell AssetLibPro to actually insert the references to the assets, like:
+{{{
+<?= $this->assetlibpro->output('css'); ?>
+<?= $this->assetlibpro->output('js'); ?>
+}}}
+Btw, using this variation would result in the same output:
+{{{
+<?= $this->assetlibpro->output('all'); ?>
+}}}
+
+
+I for one also prefer to surround the output commands with a benchmark mark:
+{{{
+<?php
+$this->benchmark->mark('AssetLib_Pro_start');
+echo $this->assetlibpro->output('css');
+echo $this->assetlibpro->output('js');
+$this->benchmark->mark('AssetLib_Pro_end');
+?>
+}}}
+
+
+Further more you either need load the config file in your controller manually (and before actually loading the library file), like:
+{{{
+$this->config->load('assetlibpro');
+}}}
+…or add it to your autoload config, like:
+{{{
+$autoload['config'] = array('assetlibpro');
+}}}
+
+= Optimal Results =
+
+I *strongly recommend* to set these config settings to "TRUE" for *optimal compression* and *caching* results:
+  * $config['alp_enable_csstidy'] = TRUE;
+  * $config['alp_enable_jsmin'] = TRUE;
+  * $config['alp_gzip_compress_css'] = TRUE;
+  * $config['alp_gzip_compress_js'] = TRUE;
+  * $config['alp_force_cache_css'] = TRUE;
+  * $config['alp_force_cache_js'] = TRUE;
+They are set to TRUE by default, so just don't change them. ;)
