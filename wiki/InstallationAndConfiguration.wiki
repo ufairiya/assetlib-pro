@@ -8,6 +8,7 @@ AssetLibPro consists of two files:
 
 The *library* file _"Assetlibpro.php"_ goes into your CodeIgniter application's "libraries" folder, such as:
 _"CodeIgniter/application/libraries/Assetlibpro.php"_
+
 The *config* file _"assetlibpro.php"_ goes into your CodeIgniter application's "config" folder, such as:
 _"CodeIgniter/application/config/assetlibpro.php"_
 
