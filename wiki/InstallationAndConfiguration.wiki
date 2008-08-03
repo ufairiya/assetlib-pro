@@ -24,6 +24,8 @@ Download *JSMin* and put the jsmin php file (renamed to "jsmin.php"!) into your 
 http://jsmin-php.googlecode.com/files/jsmin-1.1.1.php
 }}}
 
+You also need to add the url helper to your autoload configuration.
+
 = Configuration =
 
 In your *Controller* you need to load the library, like:
