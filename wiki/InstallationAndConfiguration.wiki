@@ -40,27 +40,40 @@ $autoload['libraries'] = array('assetlibpro');
 Now we need to actually add some assets to AssetLibPro. This is also done in your Controller, like:
 {{{
 <?php
-$this->assetlibpro->add_css('/assets/styles_1.css');
-$this->assetlibpro->add_css('/assets/styles_2.css');
-$this->assetlibpro->add_css('/assets/styles_3.css');
-$this->assetlibpro->add_js('/assets/mootools.js');
-$this->assetlibpro->add_js('/assets/foobar.js');
+$this->assetlibpro->add_css('styles_1.css');
+$this->assetlibpro->add_css('styles_2.css');
+$this->assetlibpro->add_css('styles_3.css');
+$this->assetlibpro->add_js('mootools.js');
+$this->assetlibpro->add_js('foobar.js');
 ?>
 }}}
 If you want to have one styles reference for print styles and one for screen, or whatever, then you can do this by adding a media tag to the command:
 {{{
 <?php
-$this->assetlibpro->add_css('/assets/print_styles_1.css', 'print');
-$this->assetlibpro->add_css('/assets/print_styles_2.css', 'print');
-$this->assetlibpro->add_css('/assets/styles_1.css');
-$this->assetlibpro->add_css('/assets/styles_2.css');
-$this->assetlibpro->add_css('/assets/styles_3.css');
-$this->assetlibpro->add_js('/assets/mootools.js','frameworks');
-$this->assetlibpro->add_js('/assets/foobar.js');
+$this->assetlibpro->add_css('print_styles_1.css', 'print');
+$this->assetlibpro->add_css('print_styles_2.css', 'print');
+$this->assetlibpro->add_css('styles_1.css');
+$this->assetlibpro->add_css('styles_2.css');
+$this->assetlibpro->add_css('styles_3.css');
+$this->assetlibpro->add_js('mootools.js','frameworks');
+$this->assetlibpro->add_js('foobar.js');
 ?>
 }}}
+Asset file paths are relative to the asset directory as defined in config file!
+
 If you do not provide a group name, then the asset gets added to the default group (see config).
-(Splitting up Javascript into groups —like seen here— does not make any sense. But as both functions (_add_css()_ & _add_js()_) share the same functionality, it's possible to do it and thus documented. :D
+(Splitting up Javascript into groups —like seen here— does not make any sense (imho). But as both functions (_add_css()_ & _add_js()_) share the same functionality, it's possible to do it and thus documented. :D
+
+Additionally you can provide a third parameter:
+{{{
+<?php
+$this->assetlibpro->add_css('print_styles_1.css', 'print', 'dark_theme');
+//or:
+$this->assetlibpro->add_css('print_styles_1.css', '', 'dark_theme');
+?>
+}}}
+This allows you to have some theme switching functionality.
+(Once again this is also available for ".js" files.)
 
 Then in your *View* you need to tell AssetLibPro to actually insert the references to the assets, like:
 {{{
